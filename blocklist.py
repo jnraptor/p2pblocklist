@@ -80,7 +80,7 @@ for line in open(input, 'r'):
             nets.extend(list(ipaddress.summarize_address_range(start, end)))
 
 outf = open(args.outfile,'w')
-for n in set(nets):
+for n in sorted(list(set(nets))):
     print(n, file=outf)
 
 outf.close()
