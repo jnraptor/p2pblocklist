@@ -42,6 +42,13 @@ def dprint(level, *a, **kwargs):
     if args.debug >= level:
         print(*a, file=sys.stderr, **kwargs)
 
+def removeZeros(ip):
+    # splits the ip by "."
+    # converts the words to integeres to remove leading removeZeros 
+    # convert back the integer to string and join them back to a string
+    new_ip = ".".join([str(int(i)) for i in ip.split(".")])
+    return new_ip 
+
 print(os.path.dirname(os.path.realpath(__file__)))
 if os.path.isabs(args.infile):
 	input = args.infile
@@ -76,6 +83,7 @@ for line in open(input, 'r'):
             if len(a) != 2:
                 dprint(2,'bad ip range:', line)
                 continue
+            a = map(removeZeros, a)
             start,end = map(ipaddress.IPv4Address, a)
             nets.extend(list(ipaddress.summarize_address_range(start, end)))
 
